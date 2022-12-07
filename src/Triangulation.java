@@ -2,21 +2,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 public class Triangulation {
-
-    public class Equation {
-        LinkedHashSet<Variable> Variables = new LinkedHashSet<>();
-        boolean isProcessed;
-
-        public Equation() {
-            isProcessed = false;
-        }
-
-        public void addVariable(Variable v) {
-            Variables.add(v);
-            v.NonProcessedEquation.add(this);
-        }
-    }
-
     ArrayList<Equation> Equations = new ArrayList<>();
     LinkedHashSet<Variable> AllVariables = new LinkedHashSet<>();
 
@@ -24,12 +9,13 @@ public class Triangulation {
 
     }
 
-    public void AddEquation(Equation e) {
+    public Triangulation AddEquation(Equation e) {
         Equations.add(e);
         AllVariables.addAll(e.Variables);
+        return this;
     }
 
-    public void work() {
+    public int work() {
         for(int i=0;i<Equations.size();++i){
             Variable variable=null;
             //the searching can be optimized by a multimap, but I'm just lazy.
@@ -39,6 +25,7 @@ public class Triangulation {
                 }
             }
             if(variable==null)break;
+            variable.isProcessed=true;
             Equation e=variable.NonProcessedEquation.iterator().next();
             e.isProcessed=true;
             for(Variable v : e.Variables){
@@ -49,5 +36,6 @@ public class Triangulation {
         for(Variable v : AllVariables){
             if(!v.isProcessed && v.NonProcessedEquation.size()==0)FreeVariables.add(v);
         }
+        return FreeVariables.size();
     }
 }

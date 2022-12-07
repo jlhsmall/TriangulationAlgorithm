@@ -6,7 +6,7 @@ public class Variable {
     int id;
     byte val;
     boolean isProcessed;
-    LinkedHashSet<Triangulation.Equation> NonProcessedEquation = new LinkedHashSet<>();
+    LinkedHashSet<Equation> NonProcessedEquation = new LinkedHashSet<>();
     public Variable(String name) {
         this.name = name;
         this.id = ++cnt;
