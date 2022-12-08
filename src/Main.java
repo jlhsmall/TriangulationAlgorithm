@@ -52,7 +52,7 @@ public class Main {
                 }*/
                 for(int i=0;i<4;++i)for (int j=0;j<5;++j){
                     Equation e = new Equation();
-                    for (int ii = 0; ii < 4; ++ii) e.addVariable(x[k][ii][j]);
+                    for (int ii = 0; ii < 4; ++ii) e.addVariable(x[k][ii][(j+ii)%5]);
                     algo.AddEquation(e.addVariable(x[k+1][i][j]));
                 }
             }
