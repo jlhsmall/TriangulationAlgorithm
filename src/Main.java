@@ -9,7 +9,7 @@ public class Main {
         e3.addVariable(t).addVariable(u).addVariable(x);
         e4.addVariable(u).addVariable(v).addVariable(s);
         e5.addVariable(v).addVariable(x).addVariable(s);
-        algo.AddEquation(e1).AddEquation(e2).AddEquation(e3).AddEquation(e4).AddEquation(e5);
+        algo.AddEquation(e5).AddEquation(e1).AddEquation(e4).AddEquation(e2).AddEquation(e3);
         System.out.println(algo.work());
     }
 
@@ -45,12 +45,25 @@ public class Main {
                         algo.AddEquation(new Equation().addVariable(x[k][i][j]).addVariable(x[k + 1][i][j]).addVariable(m[k >> 1][i][j]));
             } else {
                 //SR&MC
-                for (int j = 0; j < 5; ++j) {
+                /*for (int j = 0; j < 5; ++j) {
                     Equation e = new Equation();
                     for (int i = 0; i < 4; ++i) e.addVariable(x[k][i][j]).addVariable(x[k + 1][i][j]);
                     algo.AddEquation(e);
+                }*/
+                for(int i=0;i<4;++i)for (int j=0;j<5;++j){
+                    Equation e = new Equation();
+                    for (int ii = 0; ii < 4; ++ii) e.addVariable(x[k][ii][j]);
+                    algo.AddEquation(e.addVariable(x[k+1][i][j]));
                 }
             }
+        }
+        for (int k = 0; k <= 2; k += 2) for (int i = 0; i < 4; ++i){
+            algo.AddEquation(new Equation().addVariable(m[k][i][0]).addVariable(m[k + 1][(i + 3) % 4][0]).addVariable(m[k + 2][i][0]));
+            for (int j = 1; j < 5; ++j)
+                algo.AddEquation(new Equation().addVariable(m[k][i][j]).addVariable(m[k + 2][i][j - 1]).addVariable(m[k + 2][i][j]));
+            algo.AddEquation(new Equation().addVariable(m[k + 1][i][0]).addVariable(m[k + 2][i][4]).addVariable(m[k + 3][i][0]));
+            for (int j = 1; j < 5; ++j)
+                algo.AddEquation(new Equation().addVariable(m[k + 1][i][j]).addVariable(m[k + 3][i][j - 1]).addVariable(m[k + 3][i][j]));
         }
         System.out.println(algo.work());
     }
