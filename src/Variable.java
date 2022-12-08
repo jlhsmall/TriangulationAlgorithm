@@ -12,6 +12,10 @@ public class Variable {
         this.id = ++cnt;
         isProcessed = false;
     }
+    public Variable(){
+        this.id = ++cnt;
+        isProcessed = false;
+    }
     public void setVal(byte val){
         this.val=val;
     }
