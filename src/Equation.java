@@ -1,11 +1,13 @@
+import java.awt.*;
 import java.util.LinkedHashSet;
 
 public class Equation {
     LinkedHashSet<Variable> Variables = new LinkedHashSet<>();
     boolean isProcessed;
-
-    public Equation() {
+    Color col;
+    public Equation(Color c) {
         isProcessed = false;
+        col=c;
     }
 
     public Equation addVariable(Variable v) {

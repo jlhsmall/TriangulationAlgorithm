@@ -1,12 +1,13 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
 public class Triangulation {
-    ArrayList<Equation> Equations = new ArrayList<>();
+    ArrayList<Equation> Equations = new ArrayList<>(),ProcessedEquations=new ArrayList<>();
     LinkedHashSet<Variable> AllVariables = new LinkedHashSet<>();
-
     public Triangulation() {
-
+        Variable.cnt=0;
     }
 
     public Triangulation AddEquation(Equation e) {
@@ -16,26 +17,33 @@ public class Triangulation {
     }
 
     public int work() {
-        for(int i=0;i<Equations.size();++i){
-            Variable variable=null;
+        int ncnt=0;
+        while(ncnt< Equations.size()) {
+            Variable variable = null;
             //the searching can be optimized by a multimap, but I'm just lazy.
-            for (Variable v : AllVariables){
-                if (!v.isProcessed && v.NonProcessedEquation.size()==1){
-                    variable=v;break;
+            for (Variable v : AllVariables) {
+                if (!v.isProcessed && v.NonProcessedEquation.size() == 1) {
+                    variable = v;
+                    break;
                 }
             }
-            if(variable==null)break;
-            variable.isProcessed=true;
-            Equation e=variable.NonProcessedEquation.iterator().next();
-            e.isProcessed=true;
-            for(Variable v : e.Variables){
+            if (variable == null) return -1;
+            variable.isProcessed = true;variable.nid=ncnt++;
+            Equation e = variable.NonProcessedEquation.iterator().next();
+            e.isProcessed = true;
+            ProcessedEquations.add(e);
+            for (Variable v : e.Variables) {
                 v.NonProcessedEquation.remove(e);
             }
         }
-        LinkedHashSet<Variable>FreeVariables=new LinkedHashSet<>();
-        for(Variable v : AllVariables){
-            if(!v.isProcessed && v.NonProcessedEquation.size()==0)FreeVariables.add(v);
+        int numFree=0;
+        for (Variable v : AllVariables) {
+            if (!v.isProcessed && v.NonProcessedEquation.size() == 0){
+                ++numFree;
+                v.isFree=true;
+                v.nid=ncnt++;
+            }
         }
-        return FreeVariables.size();
+        return numFree;
     }
 }

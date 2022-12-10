@@ -3,24 +3,22 @@ import java.util.LinkedHashSet;
 public class Variable {
     public static int cnt=0;
     String name;
-    int id;
+    int id,nid;
     byte val;
-    boolean isProcessed;
+    boolean isProcessed,isFree;
     LinkedHashSet<Equation> NonProcessedEquation = new LinkedHashSet<>();
-    public Variable(String name) {
-        this.name = name;
-        this.id = ++cnt;
+    public Variable(String nm) {
+        name = nm;
+        id = ++cnt;
         isProcessed = false;
     }
     public Variable(){
-        this.id = ++cnt;
-        isProcessed = false;
-    }
-    public void setVal(byte val){
-        this.val=val;
+        id = ++cnt;
+        name= Integer.toString(id);
+        isProcessed = isFree = false;
     }
     @Override
     public int hashCode() {
-        return id;
+        return name.hashCode();
     }
 }
