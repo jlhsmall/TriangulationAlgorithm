@@ -34,10 +34,17 @@ public class Main {
             for (int i = 0; i < 4; ++i)
                 for (int j = 0; j < 5; ++j)
                     x[k][i][j] = new Variable();
-        for (int k = 0; k < 6; ++k)
+        /*for (int k = 0; k < 6; ++k)
             for (int i = 0; i < 4; ++i)
                 for (int j = 0; j < 5; ++j)
+                    m[k][i][j] = new Variable();*/
+        for (int k = 0; k < 6; k+=2)
+            for (int i = 0; i < 4; ++i) {
+                for (int j = 0; j < 5; ++j)
                     m[k][i][j] = new Variable();
+                for (int j = 0; j < 5; ++j)
+                    m[k+1][i][j] = new Variable();
+            }
         for (int k = 0; k < 11; ++k) {
             if (k % 2 == 0) {
                 //ARK&SB
@@ -59,7 +66,7 @@ public class Main {
             }
         }
         for (int k = 0; k <= 2; k += 2) for (int i = 0; i < 4; ++i){
-            algo.AddEquation(new Equation(Color.blue).addVariable(m[k][i][0]).addVariable(m[k + 1][(i + 3) % 4][0]).addVariable(m[k + 2][i][0]));
+            algo.AddEquation(new Equation(Color.blue).addVariable(m[k][i][0]).addVariable(m[k + 1][(i + 1) % 4][0]).addVariable(m[k + 2][i][0]));
             for (int j = 1; j < 5; ++j)
                 algo.AddEquation(new Equation(Color.blue).addVariable(m[k][i][j]).addVariable(m[k + 2][i][j - 1]).addVariable(m[k + 2][i][j]));
             algo.AddEquation(new Equation(Color.blue).addVariable(m[k + 1][i][0]).addVariable(m[k + 2][i][4]).addVariable(m[k + 3][i][0]));

@@ -18,7 +18,7 @@ class MyPanel1 extends JPanel
             Equation e = algo.Equations.get(i);
             g.setColor(e.col);
             for (Variable v : e.Variables)
-                g.fillRect(v.id,i, 1, 1);
+                g.fillRect(v.id*2,i*2, 2, 2);
         }
     }
 }

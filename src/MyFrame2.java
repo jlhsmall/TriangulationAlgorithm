@@ -11,7 +11,7 @@ public class MyFrame2 extends JFrame
 
         this.add(mp);
 
-        this.setSize(400, 300);
+        this.setSize(800, 800);
 
         this.setVisible(true);
 
