@@ -80,8 +80,8 @@ public class Main {
         System.out.println(x[5][0][0].isFree);
         System.out.println(x[5][0][1].isFree);
         System.out.println(x[9][0][0].isFree);*/
-        new MyFrame1(algo);
-        //new MyFrame2(algo);
+        //new MyFrame1(algo);
+        new MyFrame2(algo);
     }
 
 
